@@ -1,0 +1,75 @@
+{
+  "description": "監視対象の製品一覧",
+  "products": [
+    {
+      "id": "0ee2e3ac-7684-d519-19e7-b341d426aed7",
+      "name": "Power Apps",
+      "enabled": true
+    },
+    {
+      "id": "62bea099-f322-62f6-b283-791041e2837d",
+      "name": "Power Automate",
+      "enabled": true
+    },
+    {
+      "id": "d2883d5b-a4d6-793c-08ba-3c705e936dd9",
+      "name": "Microsoft Dataverse",
+      "enabled": true
+    },
+    {
+      "id": "42bc47c6-93e8-37f6-d45b-9dd3744c2027",
+      "name": "Microsoft Copilot Studio",
+      "enabled": true
+    },
+    {
+      "id": "98099f27-bf6b-5d28-3e2d-2743fd40344e",
+      "name": "Power Platform Administration",
+      "enabled": true
+    },
+    {
+      "id": "fcfc4872-f3fd-4212-0211-113b3b15549f",
+      "name": "Dynamics 365 Business Central",
+      "enabled": false
+    },
+    {
+      "id": "e3a10fe5-7ad0-1867-8b96-670af08ac25c",
+      "name": "Dynamics 365 Customer Insights - Data",
+      "enabled": false
+    },
+    {
+      "id": "12dd597e-c6e2-ef79-9e8d-fe9a3cf3b887",
+      "name": "Dynamics 365 Customer Insights - Journeys",
+      "enabled": false
+    },
+    {
+      "id": "f7fc6797-598b-f2a4-577e-1a61356e9d13",
+      "name": "Dynamics 365 Customer Service",
+      "enabled": false
+    },
+    {
+      "id": "6a9d3fae-c13f-2d39-73a4-98c9019a1133",
+      "name": "Dynamics 365 Field Service",
+      "enabled": false
+    },
+    {
+      "id": "83590b3a-874b-9a7d-2652-24adb25d093a",
+      "name": "Dynamics 365 Finance",
+      "enabled": false
+    },
+    {
+      "id": "9f0affe4-c954-160d-d471-1c44df71472d",
+      "name": "Dynamics 365 Lifecycle Services",
+      "enabled": false
+    },
+    {
+      "id": "9567f508-e5db-fb03-74aa-4af668a36822",
+      "name": "Dynamics 365 Supply Chain Management",
+      "enabled": false
+    }
+  ],
+  "settings": {
+    "issueStatus": "Active",
+    "maxIssueCount": 200,
+    "locale": "ja-JP"
+  }
+}

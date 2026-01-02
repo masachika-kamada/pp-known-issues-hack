@@ -1,0 +1,47 @@
+{
+  "description": "出力・通知設定（オプション機能）",
+  
+  "storage": {
+    "enabled": false,
+    "type": "blob",
+    "description": "結果の保存先（blob/table/cosmos）",
+    "settings": {
+      "connectionStringEnvVar": "STORAGE_CONNECTION_STRING",
+      "containerName": "known-issues"
+    }
+  },
+  
+  "notifications": {
+    "email": {
+      "enabled": false,
+      "type": "sendgrid",
+      "description": "メール通知（sendgrid/graph）",
+      "settings": {
+        "apiKeyEnvVar": "SENDGRID_API_KEY",
+        "fromAddress": "noreply@example.com",
+        "toAddresses": ["admin@example.com"]
+      }
+    },
+    
+    "teams": {
+      "enabled": false,
+      "description": "Teams チャンネル通知",
+      "settings": {
+        "webhookUrlEnvVar": "TEAMS_WEBHOOK_URL"
+      }
+    },
+    
+    "webhook": {
+      "enabled": false,
+      "description": "汎用 Webhook（Logic Apps / Power Automate 等）",
+      "settings": {
+        "urlEnvVar": "NOTIFICATION_WEBHOOK_URL"
+      }
+    }
+  },
+  
+  "filters": {
+    "onlyNewIssues": true,
+    "description": "前回実行時から新規の問題のみ通知"
+  }
+}

@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+.venv
+
+.env
+
+# トークンファイル
+data/refresh_token.txt
+data/access_token.txt
+
+*.har
+
+data/known_issues.json
+
+# Azure Functions ローカル設定（機密情報を含む）
+local.settings.json
+
+# 旧ディレクトリ（ルートに統合済み）
+azure_functions/
+
+# Azurite（ローカルストレージエミュレータ）
+.azurite/

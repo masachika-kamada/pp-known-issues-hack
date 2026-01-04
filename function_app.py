@@ -40,15 +40,11 @@ def run_job():
     logging.info("Initializing AuthManager...")
     auth_manager = AuthManager()
     
-    logging.info("Getting API host from config or Key Vault...")
-    api_host = auth_manager.get_api_host()
-    logging.info(f"API host: {api_host[:20]}...")  # ホスト名の一部のみログ
-    
     logging.info("Getting access token...")
     token = auth_manager.get_access_token()
     
     logging.info("Fetching known issues...")
-    data = api_client.get_known_issues(token, api_host=api_host)
+    data = api_client.get_known_issues(token)
     
     logging.info(f"Successfully retrieved {len(data) if isinstance(data, list) else 'unknown count of'} issues.")
     

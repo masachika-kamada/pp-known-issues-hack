@@ -4,24 +4,22 @@ from . import config
 from .settings import get_enabled_product_ids, get_issue_settings
 
 
-def get_api_url(api_host: str = None) -> str:
+def get_api_url() -> str:
     """API URLを生成"""
-    host = api_host or config.API_HOST
-    if not host:
+    if not config.API_HOST:
         raise ValueError("API_HOST is not configured")
-    return f"https://{host}/support/knownissue/search?api-version=2022-03-01-preview"
+    return f"https://{config.API_HOST}/support/knownissue/search?api-version=2022-03-01-preview"
 
 
-def get_known_issues(access_token, payload=None, api_host=None):
+def get_known_issues(access_token, payload=None):
     """
     既知の問題APIからデータを取得する
     
     Args:
         access_token: アクセストークン
         payload: リクエストペイロード（省略時は設定ファイルから生成）
-        api_host: APIホスト名（省略時は環境変数/configから取得）
     """
-    url = get_api_url(api_host)
+    url = get_api_url()
     headers = {
         "Authorization": f"Bearer {access_token}",
         "Content-Type": "application/json"

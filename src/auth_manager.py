@@ -9,7 +9,7 @@ class AuthManager:
     """
     CORS模倣を使用してトークンをリフレッシュするAuthManager
     
-    Key VaultからリフレッシュトークンとAPI_HOSTを取得し、
+    Key Vaultからリフレッシュトークンを取得し、
     ブラウザを模倣したリクエストでトークンをリフレッシュします。
     """
     
@@ -33,20 +33,6 @@ class AuthManager:
         
         # CORS模倣用のOrigin
         self.origin = "https://admin.powerplatform.microsoft.com"
-
-    def get_api_host(self) -> str:
-        """Key VaultからAPI_HOSTを取得（環境変数がない場合）"""
-        # 環境変数に設定されている場合はそちらを優先
-        if config.API_HOST:
-            return config.API_HOST
-        
-        # Key Vaultから取得
-        try:
-            secret = self.secret_client.get_secret("ApiHost")
-            return secret.value
-        except Exception as e:
-            logging.error(f"Failed to get ApiHost from Key Vault: {e}")
-            raise ValueError("API_HOST is not set in environment or Key Vault")
 
     def get_access_token(self) -> str:
         """

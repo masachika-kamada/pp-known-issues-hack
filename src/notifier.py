@@ -26,10 +26,6 @@ def send_notification(new_items: List[Dict[str, Any]], total_count: int) -> bool
     Returns:
         成功した場合 True
     """
-    if not new_items:
-        logging.info("No new items to notify. Skipping notification.")
-        return True
-    
     try:
         webhook_url = get_webhook_url()
     except ValueError as e:

@@ -3,6 +3,7 @@ import logging
 import json
 from src.auth_manager import AuthManager
 from src import api_client
+from src import state_manager
 
 app = func.FunctionApp()
 
@@ -52,6 +53,9 @@ def manual_trigger(req: func.HttpRequest) -> func.HttpResponse:
         )
 
 def run_job():
+    """
+    メインジョブ: 既知の問題を取得し、前回実行以降の更新をフィルタリング
+    """
     logging.info("Initializing AuthManager...")
     auth_manager = AuthManager()
     
@@ -59,22 +63,40 @@ def run_job():
     token = auth_manager.get_access_token()
     
     logging.info("Fetching known issues...")
-    data = api_client.get_known_issues(token)
+    all_data = api_client.get_known_issues(token)
     
-    logging.info(f"Successfully retrieved {len(data) if isinstance(data, list) else 'unknown count of'} issues.")
+    total_count = len(all_data) if isinstance(all_data, list) else 0
+    logging.info(f"Retrieved {total_count} total issues.")
     
-    # 日付フィルタリングの例 (API側でフィルタできない場合)
-    # from datetime import datetime, timedelta
-    # threshold_date = datetime.now() - timedelta(days=7)
-    # filtered_data = [
-    #     item for item in data.get('value', []) 
-    #     if datetime.fromisoformat(item.get('createdDateTime', '').replace('Z', '+00:00')) > threshold_date.astimezone()
-    # ]
+    # 前回実行日時を取得してフィルタリング
+    last_run = state_manager.get_last_run_time()
+    logging.info(f"Filtering issues changed since: {last_run}")
+    
+    if isinstance(all_data, list):
+        new_items = state_manager.filter_by_changed_date(all_data, last_run)
+    else:
+        new_items = []
+    
+    logging.info(f"Found {len(new_items)} new/updated issues since last run.")
+    
+    # 現在時刻を保存（次回実行の基準に）
+    state_manager.save_last_run_time()
     
     # ここでTeams通知などの後続処理を行う
-    # logging.info(json.dumps(data, indent=2)) 
+    if new_items:
+        logging.info(f"New issues to notify: {[item.get('workItemId') for item in new_items]}")
+        # TODO: 通知処理を追加
+    else:
+        logging.info("No new issues to notify.")
     
-    return data
+    # 戻り値は新しいアイテムのみ
+    return {
+        "total_count": total_count,
+        "new_count": len(new_items),
+        "last_run": last_run.isoformat(),
+        "new_items": new_items
+    }
+
 def refresh_token_only():
     """トークンのリフレッシュのみを行う（API呼び出しなし）"""
     logging.info("Initializing AuthManager for token refresh...")

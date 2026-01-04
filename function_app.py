@@ -9,6 +9,7 @@ app = func.FunctionApp()
 @app.schedule(schedule="0 0 9 * * *", arg_name="myTimer", run_on_startup=False,
               use_monitor=False) 
 def timer_trigger(myTimer: func.TimerRequest) -> None:
+    """毎日9時にジョブを実行"""
     if myTimer.past_due:
         logging.info('The timer is past due!')
 
@@ -18,6 +19,20 @@ def timer_trigger(myTimer: func.TimerRequest) -> None:
         run_job()
     except Exception as e:
         logging.error(f"Job failed: {e}")
+
+@app.schedule(schedule="0 0 21 * * *", arg_name="myTimer", run_on_startup=False,
+              use_monitor=False)
+def token_refresh_trigger(myTimer: func.TimerRequest) -> None:
+    """毎日21時にトークンをリフレッシュ（24時間期限対策）"""
+    if myTimer.past_due:
+        logging.info('The timer is past due!')
+
+    logging.info('Token refresh trigger started.')
+    
+    try:
+        refresh_token_only()
+    except Exception as e:
+        logging.error(f"Token refresh failed: {e}")
 
 @app.route(route="manual_trigger", auth_level=func.AuthLevel.FUNCTION)
 def manual_trigger(req: func.HttpRequest) -> func.HttpResponse:
@@ -60,3 +75,14 @@ def run_job():
     # logging.info(json.dumps(data, indent=2)) 
     
     return data
+def refresh_token_only():
+    """トークンのリフレッシュのみを行う（API呼び出しなし）"""
+    logging.info("Initializing AuthManager for token refresh...")
+    auth_manager = AuthManager()
+    
+    logging.info("Refreshing access token...")
+    token = auth_manager.get_access_token()
+    
+    # トークンの一部をログに出力（確認用）
+    logging.info(f"Token refreshed successfully. Token starts with: {token[:20]}...")
+    logging.info("Token refresh completed. Key Vault updated with new refresh token.")

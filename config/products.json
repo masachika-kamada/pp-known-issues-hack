@@ -1,55 +1,45 @@
 {
-  "description": "監視対象の製品一覧",
+  "description": "監視対象の製品一覧（Power Platform Admin Center の表示順）",
   "products": [
     {
-      "id": "0ee2e3ac-7684-d519-19e7-b341d426aed7",
-      "name": "Power Apps",
-      "enabled": true
+      "id": "4d5bbcfb-9713-8959-74ab-4fa6d930d100",
+      "name": "Dynamics 365 Business Central",
+      "enabled": false
     },
     {
-      "id": "62bea099-f322-62f6-b283-791041e2837d",
-      "name": "Power Automate",
-      "enabled": true
-    },
-    {
-      "id": "d2883d5b-a4d6-793c-08ba-3c705e936dd9",
-      "name": "Microsoft Dataverse",
-      "enabled": true
-    },
-    {
-      "id": "42bc47c6-93e8-37f6-d45b-9dd3744c2027",
-      "name": "Microsoft Copilot Studio",
-      "enabled": true
-    },
-    {
-      "id": "98099f27-bf6b-5d28-3e2d-2743fd40344e",
-      "name": "Power Platform Administration",
-      "enabled": true
+      "id": "4ca04fdf-8523-f4d2-95f5-6644f1466f2f",
+      "name": "Dynamics 365 Commerce",
+      "enabled": false
     },
     {
       "id": "fcfc4872-f3fd-4212-0211-113b3b15549f",
-      "name": "Dynamics 365 Business Central",
+      "name": "Dynamics 365 Contact Center",
       "enabled": false
     },
     {
       "id": "e3a10fe5-7ad0-1867-8b96-670af08ac25c",
       "name": "Dynamics 365 Customer Insights - Data",
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "12dd597e-c6e2-ef79-9e8d-fe9a3cf3b887",
       "name": "Dynamics 365 Customer Insights - Journeys",
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "f7fc6797-598b-f2a4-577e-1a61356e9d13",
       "name": "Dynamics 365 Customer Service",
-      "enabled": false
+      "enabled": true
+    },
+    {
+      "id": "5d4d6b36-7fef-0cd8-c9d2-3282bc9fd3f4",
+      "name": "Dynamics 365 Customer Voice",
+      "enabled": true
     },
     {
       "id": "6a9d3fae-c13f-2d39-73a4-98c9019a1133",
       "name": "Dynamics 365 Field Service",
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "83590b3a-874b-9a7d-2652-24adb25d093a",
@@ -62,9 +52,59 @@
       "enabled": false
     },
     {
+      "id": "9cb3c585-3f42-92f4-c420-b8ab268bff06",
+      "name": "Dynamics 365 Project Operations",
+      "enabled": false
+    },
+    {
+      "id": "02dd1e68-1343-1def-b66f-3c92125b6272",
+      "name": "Dynamics 365 Remote Assist",
+      "enabled": true
+    },
+    {
+      "id": "93d7dfaa-8771-9052-11f8-0cd29d9615c8",
+      "name": "Dynamics 365 Sales",
+      "enabled": true
+    },
+    {
       "id": "9567f508-e5db-fb03-74aa-4af668a36822",
       "name": "Dynamics 365 Supply Chain Management",
       "enabled": false
+    },
+    {
+      "id": "579cfc10-9a8f-fcdd-e388-81f4b3661c07",
+      "name": "Microsoft Copilot for Sales",
+      "enabled": true
+    },
+    {
+      "id": "42bc47c6-93e8-37f6-d45b-9dd3744c2027",
+      "name": "Microsoft Copilot Studio",
+      "enabled": false
+    },
+    {
+      "id": "d2883d5b-a4d6-793c-08ba-3c705e936dd9",
+      "name": "Microsoft Dataverse",
+      "enabled": true
+    },
+    {
+      "id": "0ee2e3ac-7684-d519-19e7-b341d426aed7",
+      "name": "Power Apps",
+      "enabled": true
+    },
+    {
+      "id": "62bea099-f322-62f6-b283-791041e2837d",
+      "name": "Power Automate",
+      "enabled": false
+    },
+    {
+      "id": "91e78063-c1f5-522a-3577-84a18dad1296",
+      "name": "Power Pages",
+      "enabled": true
+    },
+    {
+      "id": "98099f27-bf6b-5d28-3e2d-2743fd40344e",
+      "name": "Power Platform 管理者",
+      "enabled": true
     }
   ],
   "settings": {

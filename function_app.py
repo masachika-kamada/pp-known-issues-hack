@@ -4,6 +4,7 @@ import json
 from src.auth_manager import AuthManager
 from src import api_client
 from src import state_manager
+from src import notifier
 
 app = func.FunctionApp()
 
@@ -82,10 +83,11 @@ def run_job():
     # 現在時刻を保存（次回実行の基準に）
     state_manager.save_last_run_time()
     
-    # ここでTeams通知などの後続処理を行う
+    # Power Automate に通知を送信
     if new_items:
         logging.info(f"New issues to notify: {[item.get('workItemId') for item in new_items]}")
-        # TODO: 通知処理を追加
+        notification_sent = notifier.send_notification(new_items, total_count)
+        logging.info(f"Notification sent: {notification_sent}")
     else:
         logging.info("No new issues to notify.")
     

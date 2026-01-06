@@ -311,31 +311,46 @@ def _create_email_body(items: List[Dict[str, Any]], total_count: int) -> Dict[st
         "=" * 50,
     ]
     
-    for item in items:
+    if items:
+        for item in items:
+            text_lines.extend([
+                f"",
+                f"■ {item.get('title', 'No Title')}",
+                f"  Work Item ID: {item.get('workItemId', '')}",
+                f"  製品: {item.get('product', '')}",
+                f"  状態: {item.get('state', '')}",
+                f"  更新日時: {item.get('changedDate', '')}",
+                f"  概要: {_truncate(item.get('description', ''), 200)}",
+                "",
+            ])
+    else:
         text_lines.extend([
             f"",
-            f"■ {item.get('title', 'No Title')}",
-            f"  Work Item ID: {item.get('workItemId', '')}",
-            f"  製品: {item.get('product', '')}",
-            f"  状態: {item.get('state', '')}",
-            f"  更新日時: {item.get('changedDate', '')}",
-            f"  概要: {_truncate(item.get('description', ''), 200)}",
-            "",
+            f"本日の更新はありませんでした。",
+            f"",
         ])
     
     # HTML版
     html_items = ""
-    for item in items:
-        html_items += f"""
-        <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-            <h3 style="margin: 0 0 10px 0; color: #0078d4;">{item.get('title', 'No Title')}</h3>
-            <table style="font-size: 14px;">
-                <tr><td style="padding: 2px 10px 2px 0; color: #666;">Work Item ID:</td><td>{item.get('workItemId', '')}</td></tr>
-                <tr><td style="padding: 2px 10px 2px 0; color: #666;">製品:</td><td>{item.get('product', '')}</td></tr>
-                <tr><td style="padding: 2px 10px 2px 0; color: #666;">状態:</td><td>{item.get('state', '')}</td></tr>
-                <tr><td style="padding: 2px 10px 2px 0; color: #666;">更新日時:</td><td>{item.get('changedDate', '')}</td></tr>
-            </table>
-            <p style="margin: 10px 0 0 0; font-size: 13px; color: #333;">{_truncate(item.get('description', ''), 300)}</p>
+    if items:
+        for item in items:
+            html_items += f"""
+            <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                <h3 style="margin: 0 0 10px 0; color: #0078d4;">{item.get('title', 'No Title')}</h3>
+                <table style="font-size: 14px;">
+                    <tr><td style="padding: 2px 10px 2px 0; color: #666;">Work Item ID:</td><td>{item.get('workItemId', '')}</td></tr>
+                    <tr><td style="padding: 2px 10px 2px 0; color: #666;">製品:</td><td>{item.get('product', '')}</td></tr>
+                    <tr><td style="padding: 2px 10px 2px 0; color: #666;">状態:</td><td>{item.get('state', '')}</td></tr>
+                    <tr><td style="padding: 2px 10px 2px 0; color: #666;">更新日時:</td><td>{item.get('changedDate', '')}</td></tr>
+                </table>
+                <p style="margin: 10px 0 0 0; font-size: 13px; color: #333;">{_truncate(item.get('description', ''), 300)}</p>
+            </div>
+            """
+    else:
+        html_items = """
+        <div style="padding: 30px; text-align: center; background-color: #f8f9fa; border-radius: 5px;">
+            <p style="font-size: 18px; color: #28a745; margin: 0;">✅ 本日の更新はありませんでした</p>
+            <p style="font-size: 14px; color: #666; margin-top: 10px;">システムは正常に稼働しています。</p>
         </div>
         """
     

@@ -83,13 +83,14 @@ def run_job():
     # 現在時刻を保存（次回実行の基準に）
     state_manager.save_last_run_time()
     
-    # Power Automate に通知を送信
+    # 通知を送信（0件でも送信）
     if new_items:
         logging.info(f"New issues to notify: {[item.get('workItemId') for item in new_items]}")
-        notification_sent = notifier.send_notification(new_items, total_count)
-        logging.info(f"Notification sent: {notification_sent}")
     else:
-        logging.info("No new issues to notify.")
+        logging.info("No new issues, but sending notification anyway.")
+    
+    notification_sent = notifier.send_notification(new_items, total_count)
+    logging.info(f"Notification sent: {notification_sent}")
     
     # 戻り値は新しいアイテムのみ
     return {

@@ -368,26 +368,6 @@ python known_issues_automation.py
 
 ---
 
-## 11. ファイル構成
+## 関連ドキュメント
 
-```
-known-issue/
-├── known_issues_automation.py   # メインスクリプト（自動化用）
-├── extract_token.py             # HARファイルからトークン抽出
-├── function_app.py              # Azure Functions用エントリポイント
-├── requirements.txt             # 依存関係
-├── host.json                    # Azure Functions設定
-│
-├── refresh_token.txt            # ⚠️ Git除外（機密情報）
-├── access_token.txt             # ⚠️ Git除外（機密情報）
-├── *.har                        # ⚠️ Git除外（機密情報）
-├── known_issues.json            # 取得結果
-│
-├── src/                         # Azure Functions用モジュール
-│   ├── auth_manager.py          # 認証管理（Key Vault連携版）
-│   ├── api_client.py            # API クライアント
-│   └── config.py                # 設定
-│
-└── docs/
-    └── OAUTH_INVESTIGATION.md   # このドキュメント
-```
+CORS模倣の仕組みについてより詳しく知りたい場合は、[cors-mimicry-explained.md](cors-mimicry-explained.md) を参照してください。

@@ -96,7 +96,8 @@ python scripts/known_issues_automation.py
 |-------------|------|
 | [scripts/README.md](scripts/README.md) | ローカル実行の詳細手順、トラブルシューティング |
 | [docs/azure-functions-deploy.md](docs/azure-functions-deploy.md) | Azure Functions デプロイ手順、Key Vault 設定 |
-| [docs/oauth-investigation.md](docs/oauth-investigation.md) | OAuth 2.0 技術調査、CORS模倣の仕組み |
+| [docs/oauth-investigation.md](docs/oauth-investigation.md) | OAuth 2.0 技術調査、トークンフロー |
+| [docs/cors-mimicry-explained.md](docs/cors-mimicry-explained.md) | CORS模倣の仕組み解説（なぜ必要か、セキュリティ観点） |
 
 ## 📝 ライセンス
 

@@ -8,10 +8,12 @@ from src import notifier
 
 app = func.FunctionApp()
 
+# TZ=Asia/Tokyo が設定されているため、cron式はJST基準
+# 毎日 JST 9:00 にトリガー
 @app.schedule(schedule="0 0 9 * * *", arg_name="myTimer", run_on_startup=False,
-              use_monitor=False) 
+              use_monitor=True) 
 def timer_trigger(myTimer: func.TimerRequest) -> None:
-    """毎日9時にジョブを実行"""
+    """毎日 JST 9:00 にジョブを実行"""
     if myTimer.past_due:
         logging.info('The timer is past due!')
 
@@ -20,12 +22,15 @@ def timer_trigger(myTimer: func.TimerRequest) -> None:
     try:
         run_job()
     except Exception as e:
-        logging.error(f"Job failed: {e}")
+        logging.error(f"Job failed: {e}", exc_info=True)
+        raise  # エラーを再スローして Azure Functions に失敗を通知
 
+# TZ=Asia/Tokyo が設定されているため、cron式はJST基準
+# 毎日 JST 21:00 にトークンをリフレッシュ
 @app.schedule(schedule="0 0 21 * * *", arg_name="myTimer", run_on_startup=False,
-              use_monitor=False)
+              use_monitor=True)
 def token_refresh_trigger(myTimer: func.TimerRequest) -> None:
-    """毎日21時にトークンをリフレッシュ（24時間期限対策）"""
+    """毎日 JST 21:00 にトークンをリフレッシュ"""
     if myTimer.past_due:
         logging.info('The timer is past due!')
 
@@ -34,7 +39,8 @@ def token_refresh_trigger(myTimer: func.TimerRequest) -> None:
     try:
         refresh_token_only()
     except Exception as e:
-        logging.error(f"Token refresh failed: {e}")
+        logging.error(f"Token refresh failed: {e}", exc_info=True)
+        raise  # エラーを再スローして Azure Functions に失敗を通知
 
 @app.route(route="manual_trigger", auth_level=func.AuthLevel.FUNCTION)
 def manual_trigger(req: func.HttpRequest) -> func.HttpResponse:

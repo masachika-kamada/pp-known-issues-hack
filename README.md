@@ -1,5 +1,25 @@
 # PP Known Issues Hack
 
+> [!NOTE]
+> ## 📋 技術検証の結果
+> 
+> このプロジェクトは Power Platform Known Issues API の非公式アクセス方法を検証したものです。
+> 
+> ### 検証結果
+> 
+> CORS模倣方式でのAPI呼び出し自体は成功しましたが、**SPAトークンの24時間制限**により継続的な自動実行には向かないことが判明しました。
+> 
+> - Power Platform Admin Center の `client_id` は SPA として登録されている
+> - SPAのリフレッシュトークンは**セッション開始から24時間で失効**（`AADSTS700084`）
+> - リフレッシュしても有効期限は延長されない（Microsoft の仕様）
+> 
+> ### 参考
+> 
+> - [Microsoft Q&A: Refresh Token Expiry in Azure AD SPA](https://learn.microsoft.com/en-us/answers/questions/1855103/issue-with-refresh-token-expiry-in-azure-ad-spa-ap)
+> - [GitHub MSAL.js Issue #4613](https://github.com/AzureAD/microsoft-authentication-library-for-js/issues/4613)
+
+---
+
 Power Platform の「既知の問題（Known Issues）」を **アプリ登録なし・管理者権限なし** で自動取得するツールです。
 
 ## 🎯 概要
@@ -22,7 +42,7 @@ Power Platform Admin Center の Known Issues は公式 API が公開されてい
 | 仕組み | ブラウザからのリクエストを模倣してトークンを取得 |
 | メリット | 管理者権限不要で即座に動作 |
 | リスク | Microsoft がセキュリティを強化すると動作しなくなる可能性 |
-| トークン有効期限 | 約90日（定期的に使用すれば延長される） |
+| トークン有効期限 | **24時間（延長不可）** - SPAトークンの仕様により自動化は不可能 |
 
 ## 📁 ディレクトリ構成
 
